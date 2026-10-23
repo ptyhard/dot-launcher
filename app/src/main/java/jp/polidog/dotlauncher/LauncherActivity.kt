@@ -308,7 +308,6 @@ fun NowPlayingBar(t: LauncherTheme, track: Track, modifier: Modifier = Modifier,
             .fillMaxWidth()
             .padding(horizontal = 18.dp)
             .clip(RoundedCornerShape(6.dp))
-            .background(t.background.copy(alpha = 0.72f))
             .padding(4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -367,7 +366,6 @@ fun RecentApps(
         Column(
             Modifier
                 .clip(RoundedCornerShape(6.dp))
-                .background(t.background.copy(alpha = 0.72f))
                 .padding(4.dp),
         ) {
             for (app in recent) {
@@ -476,7 +474,6 @@ fun Hint(t: LauncherTheme, text: String, onClick: () -> Unit) {
         style = TextStyle(fontFamily = Mono, fontSize = 13.sp, color = t.muted),
         modifier = Modifier
             .clip(RoundedCornerShape(4.dp))
-            .background(t.background.copy(alpha = 0.72f))
             .combinedClickable(onClick = onClick)
             .padding(horizontal = 10.dp, vertical = 9.dp),
     )
@@ -504,7 +501,6 @@ fun Notices(t: LauncherTheme, notices: List<Notice>, onOpen: (Notice) -> Unit, o
         Column(
             Modifier
                 .clip(RoundedCornerShape(6.dp))
-                .background(t.background.copy(alpha = 0.72f))
                 .padding(4.dp),
         ) {
             for (n in notices) {
