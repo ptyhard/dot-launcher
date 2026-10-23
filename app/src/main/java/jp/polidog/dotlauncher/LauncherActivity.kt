@@ -363,7 +363,7 @@ fun RecentApps(
     if (recent.isEmpty()) return
     val style = TextStyle(fontFamily = Mono, fontSize = 17.sp, color = t.foreground)
     Column(Modifier.fillMaxWidth()) {
-        BasicText("recent", style = style.copy(fontSize = 13.sp, color = t.muted), modifier = Modifier.padding(start = 10.dp, bottom = 4.dp))
+        BasicText("履歴", style = style.copy(fontSize = 13.sp, color = t.muted), modifier = Modifier.padding(start = 10.dp, bottom = 4.dp))
         Column(
             Modifier
                 .clip(RoundedCornerShape(6.dp))
