@@ -44,6 +44,13 @@ During development, put it in `local.properties` (or an environment variable) an
 TYPESAFE_API_KEY=...
 ```
 
+For your own phone there is a `personal` build type: signed like release, not debuggable, but with the key baked in. It installs over a release build (same signature) and keeps the app's data. Never upload it to Play.
+
+```sh
+./gradlew assemblePersonal
+adb install -r app/build/outputs/apk/personal/app-personal.apk
+```
+
 ## Release
 
 Play gets a signed AAB. Once you create the upload key, don't lose it (and keep it out of git).

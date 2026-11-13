@@ -35,16 +35,22 @@ android {
             keyPassword = signingValue("keyPassword")
         }
     }
+    // 自分の端末用の Jev のキー。local.properties か環境変数から読む（設定画面で上書きできる）
+    val jevKey = localProps.getProperty("TYPESAFE_API_KEY") ?: System.getenv("TYPESAFE_API_KEY") ?: ""
     buildTypes {
         debug {
-            // 自分の端末用。Jev のキーを local.properties か環境変数から初期値として入れる（設定画面で上書きできる）
-            val jevKey = localProps.getProperty("TYPESAFE_API_KEY") ?: System.getenv("TYPESAFE_API_KEY") ?: ""
             buildConfigField("String", "TYPESAFE_API_KEY", "\"$jevKey\"")
         }
         release {
             isMinifyEnabled = false
             // 配るものにはキーを入れない。ユーザーが設定画面で自分のキーを入れる
             if (signingValue("storeFile") != null) signingConfig = signingConfigs.getByName("upload")
+        }
+        // 自分の端末に入れる release。署名は release と同じで、Jev のキーだけ入れる。Play には出さない
+        create("personal") {
+            initWith(getByName("release"))
+            matchingFallbacks += "release"
+            buildConfigField("String", "TYPESAFE_API_KEY", "\"$jevKey\"")
         }
     }
     compileOptions {

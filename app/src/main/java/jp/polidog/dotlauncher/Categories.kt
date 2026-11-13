@@ -12,6 +12,7 @@ import org.json.JSONObject
 enum class Category(val label: String) {
     Contact("連絡・SNS"),
     Work("仕事"),
+    Ai("AI"),
     Maps("地図・移動"),
     Money("お金"),
     Shopping("買い物"),
@@ -28,10 +29,20 @@ enum class Category(val label: String) {
  * アプリをカテゴリに振り分ける。人は何もしない。
  * まずアプリの作者が申告したカテゴリ（ApplicationInfo.category）を使い、申告の無いアプリと「仕事」と申告したアプリは Jev に聞く。
  * Jev の答えは端末内（SharedPreferences）に残し、同じアプリについて聞くのは 1 回だけ。
+ * ただしカテゴリの種類が変わったら（アプリの更新で足したり消したり）答えは古いので、全部捨てて聞き直す。
  */
 object Categories {
     private const val PREFS = "categories"
     private const val CHUNK = 20 // 1 リクエストで聞くアプリの数
+    private const val KEY_CATEGORIES = "__categories" // 答えを出したときのカテゴリの種類。パッケージ名と混ざらないよう _ で始める
+    private val categoriesSignature = Category.entries.joinToString(",") { it.name }
+
+    /** Jev の答えの置き場。カテゴリの種類が答えを出したときと違えば、空にして返す。 */
+    private fun prefs(context: Context) = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).also {
+        if (it.getString(KEY_CATEGORIES, null) != categoriesSignature) {
+            it.edit().clear().putString(KEY_CATEGORIES, categoriesSignature).apply()
+        }
+    }
 
     /** やり直した回数。増えるとランチャーが Jev に聞き直す。 */
     val generation = mutableIntStateOf(0)
@@ -41,13 +52,13 @@ object Categories {
 
     /** Jev の答えを全部捨てて、聞き直す。分類が変だったときや、カテゴリの種類を変えたあとに人が設定から呼ぶ。 */
     fun reset(context: Context) {
-        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().clear().apply()
+        prefs(context).edit().clear().putString(KEY_CATEGORIES, categoriesSignature).apply()
         generation.intValue++
     }
 
     /** 通信しないで分かるぶん。申告も Jev の答えも無いアプリは Other。 */
     fun load(context: Context, apps: List<AppEntry>): Map<AppEntry, Category> {
-        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        val prefs = prefs(context)
         return apps.associateWith { app ->
             declared(app.category)
                 ?: prefs.getString(app.packageName, null)?.let { runCatching { Category.valueOf(it) }.getOrNull() }
@@ -57,7 +68,7 @@ object Categories {
 
     /** 申告も Jev の答えも無いアプリ。 */
     fun unknown(context: Context, apps: List<AppEntry>): List<AppEntry> {
-        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        val prefs = prefs(context)
         return apps.filter { declared(it.category) == null && !prefs.contains(it.packageName) }
             .distinctBy { it.packageName }
     }
@@ -69,7 +80,7 @@ object Categories {
     @Synchronized
     fun classify(context: Context, apps: List<AppEntry>): Boolean {
         if (!JevSearch.available) return false
-        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        val prefs = prefs(context)
         var added = false
         busy.value = true
         try {
