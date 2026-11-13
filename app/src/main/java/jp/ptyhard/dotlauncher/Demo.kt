@@ -1,4 +1,4 @@
-package jp.polidog.dotlauncher
+package jp.ptyhard.dotlauncher
 
 import android.content.Context
 import android.content.Intent
@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 
 /**
  * README の動画を撮るためのデモ表示。debug ビルドだけで効く。
- *   adb shell am start -n jp.polidog.dotlauncher/.LauncherActivity --ez demo true   # 入る
- *   adb shell am start -n jp.polidog.dotlauncher/.LauncherActivity --ez demo false  # 戻る
+ *   adb shell am start -n jp.ptyhard.dotlauncher/.LauncherActivity --ez demo true   # 入る
+ *   adb shell am start -n jp.ptyhard.dotlauncher/.LauncherActivity --ez demo false  # 戻る
  * 通知・検索履歴・再生中の曲をダミーに差し替える。本物の通知や履歴には触らない。
  */
 object Demo {

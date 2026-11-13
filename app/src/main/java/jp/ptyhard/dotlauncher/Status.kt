@@ -1,4 +1,4 @@
-package jp.polidog.dotlauncher
+package jp.ptyhard.dotlauncher
 
 import android.content.BroadcastReceiver
 import android.content.Context

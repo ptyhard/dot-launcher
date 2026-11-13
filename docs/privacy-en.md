@@ -2,9 +2,9 @@
 
 [日本語](privacy.md)
 
-Last updated: 2026-10-20
+Last updated: 2026-11-13
 
-DotLauncher ("the app") is an Android home screen app developed and distributed by polidog.
+DotLauncher ("the app") is an Android home screen app developed and distributed by PartyHard Inc.
 
 ## Information the developer receives
 
@@ -37,4 +37,4 @@ The API key is stored only on your device.
 
 ## Contact
 
-https://github.com/polidog/dot-launcher/issues
+https://github.com/ptyhard/dot-launcher/issues

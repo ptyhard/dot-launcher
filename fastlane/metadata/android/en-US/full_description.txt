@@ -32,4 +32,4 @@ The interface is currently in Japanese.
 
 ■ Open source
 The source code is on GitHub under the MIT License.
-https://github.com/polidog/dot-launcher
+https://github.com/ptyhard/dot-launcher

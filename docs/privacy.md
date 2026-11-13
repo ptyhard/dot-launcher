@@ -2,9 +2,9 @@
 
 [English](privacy-en.md)
 
-最終更新: 2026-10-20
+最終更新: 2026-11-13
 
-DotLauncher（以下「本アプリ」）は、polidog が開発・配布する Android のホームアプリです。
+DotLauncher（以下「本アプリ」）は、株式会社PartyHard が開発・配布する Android のホームアプリです。
 
 ## 開発者が受け取る情報
 
@@ -37,4 +37,4 @@ API キーは端末の中にだけ保存します。
 
 ## お問い合わせ
 
-https://github.com/polidog/dot-launcher/issues
+https://github.com/ptyhard/dot-launcher/issues

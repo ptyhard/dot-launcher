@@ -31,7 +31,7 @@ Gradle 8.11 needs JDK 21 (JDK 26 does not work).
 export JAVA_HOME=~/.local/share/mise/installs/java/21
 ./gradlew assembleDebug
 adb install -r app/build/outputs/apk/debug/app-debug.apk
-adb shell cmd package set-home-activity jp.polidog.dotlauncher/.LauncherActivity
+adb shell cmd package set-home-activity jp.ptyhard.dotlauncher/.LauncherActivity
 ```
 
 ## Jev API key
@@ -77,8 +77,8 @@ On Play it is a paid app (one-time purchase, no in-app billing). Set it to paid 
 For the README videos. Works in debug builds only, and swaps notifications, search history and the now-playing track for dummies (the real ones are left alone).
 
 ```sh
-adb shell am start -n jp.polidog.dotlauncher/.LauncherActivity --ez demo true   # enter
-adb shell am start -n jp.polidog.dotlauncher/.LauncherActivity --ez demo false  # leave
+adb shell am start -n jp.ptyhard.dotlauncher/.LauncherActivity --ez demo true   # enter
+adb shell am start -n jp.ptyhard.dotlauncher/.LauncherActivity --ez demo false  # leave
 ```
 
 ## Changing the theme
@@ -87,8 +87,8 @@ The default is `app/src/main/assets/colors.toml` (Turbonite). Put one on the dev
 
 ```sh
 adb push ~/.local/state/omarchy/current/theme/colors.toml \
-  /sdcard/Android/data/jp.polidog.dotlauncher/files/colors.toml
-adb shell am force-stop jp.polidog.dotlauncher
+  /sdcard/Android/data/jp.ptyhard.dotlauncher/files/colors.toml
+adb shell am force-stop jp.ptyhard.dotlauncher
 ```
 
 ## Layout

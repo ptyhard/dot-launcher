@@ -29,4 +29,4 @@ TypeSafe の Jev の API キーを設定画面に入れると、次の機能が�
 
 ■ オープンソース
 ソースコードは GitHub で公開しています（MIT ライセンス）。
-https://github.com/polidog/dot-launcher
+https://github.com/ptyhard/dot-launcher
